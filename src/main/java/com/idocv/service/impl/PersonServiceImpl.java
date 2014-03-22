@@ -13,6 +13,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import com.idocv.po.Person;
+import com.idocv.repository.PersonRepository;
 import com.idocv.service.PersonService;
 
 @Service
@@ -22,6 +23,9 @@ public class PersonServiceImpl implements PersonService {
 
 	@Resource
 	private MongoOperations mongoOperations;
+
+	@Resource
+	private PersonRepository personRepository;
 
 	@Override
 	public void save(Person person) {
@@ -45,7 +49,9 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	public List<Person> findAll() {
-		return mongoOperations.findAll(Person.class);
+		// return mongoOperations.findAll(Person.class);
+		List<Person> list = (List<Person>) personRepository.findAll();
+		return list;
 	}
 
 }
